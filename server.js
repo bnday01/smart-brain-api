@@ -8,15 +8,17 @@ const knex = require('knex');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
-const image = require('./controllers/image')
+const image = require('./controllers/image');
+const Pool = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
 
 //EXECUTE
 const db = knex({
   client: 'pg',
-  connection: {
-    connectionString : process.env.DATABASE_URL,
-	  ssl:true
-  }
+  connection: pool
 });
 
 const app = express();
